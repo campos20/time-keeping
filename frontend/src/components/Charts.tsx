@@ -1,4 +1,4 @@
-import { Cell, Pie, PieChart, Tooltip } from "recharts";
+import { Pie, PieChart } from "recharts";
 import { TimeEntryDto } from "../model/TimeEntryDto";
 
 interface Props {
@@ -31,7 +31,7 @@ export const Charts = ({ entries }: Props) => {
         cy="50%"
         dataKey="value"
         nameKey="name"
-      ></Pie>
+      />
     </PieChart>
   );
 };

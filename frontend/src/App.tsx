@@ -1,7 +1,9 @@
+import { TimeEntry } from "./components/TimeEntry";
+
 export const App = () => {
   return (
     <div>
-      <h1>Time Keeping</h1>
+      <TimeEntry />
     </div>
   );
 };

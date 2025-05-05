@@ -91,7 +91,9 @@ export const TimeEntry = ({
         </Col>
         <Col span={24} className="text-center">
           <ButtonGroup>
-            <Button onClick={handleClear}>Clear</Button>
+            <Button variant="solid" onClick={handleClear}>
+              Clear
+            </Button>
             <Button type="primary" htmlType="submit">
               Save
             </Button>

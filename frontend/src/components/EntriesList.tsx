@@ -36,9 +36,11 @@ export const EntriesList = ({ entries, onRemove, setToEdit }: Props) => {
               onRemove(timeEntry.id);
             }}
           >
-            <Button icon={<FaTrash />}></Button>
+            <Button variant="solid" color="red" icon={<FaTrash />}></Button>
           </Popconfirm>
           <Button
+            variant="solid"
+            color="blue"
             icon={<FaEdit />}
             onClick={() => {
               setToEdit(timeEntry);

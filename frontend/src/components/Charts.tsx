@@ -26,6 +26,7 @@ export const Charts = ({ entries }: Props) => {
           value,
           fill: COLORS[idx % COLORS.length],
         }))}
+        label={({ name, value }) => `${name}: ${value}`}
         outerRadius={120}
         cx="50%"
         cy="50%"

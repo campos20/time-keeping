@@ -34,7 +34,7 @@ export const App = () => {
           }}
         />
       </Col>
-      <Col span={24} md={12}>
+      <Col span={24} md={12} className="text-center">
         <Charts entries={entries} />
       </Col>
       <Col span={24} md={12}>

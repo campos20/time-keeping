@@ -23,3 +23,5 @@ terraform apply
 ```
 
 If you agree with the plan shown, type yes.
+
+The frontend address will be shown in the terminal as `cloudfront_domain_name`. Visit it. If nothing is shown, run the commands from the deployment action (or trigger it).

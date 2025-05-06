@@ -11,7 +11,7 @@ module "cdn" {
   stage                     = terraform.workspace
   error_document            = "index.html"
   dns_alias_enabled         = false
-  minimum_protocol_version  = "TLSv1.2_2021"
+  minimum_protocol_version  = "TLSv1"
 
   custom_error_response = [
     {

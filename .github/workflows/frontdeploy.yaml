@@ -1,0 +1,51 @@
+name: Frontend Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/**"
+      - ".github/workflows/frontdeploy.yaml"
+
+env:
+  AWS_DEFAULT_REGION: ${{ vars.AWS_DEFAULT_REGION }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.CI_CD_AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.CI_CD_AWS_SECRET_ACCESS_KEY }}
+  STAGE: default
+  PROJECT_NAME: time_keeping
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: "**/node_modules"
+          key: ${{ runner.os }}-node-v20-${{ hashFiles('package-lock.json') }}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20.x"
+      - run: npm i
+      - run: npm run build
+      - name: Synchronize files
+        run: |
+
+          # Get values from ssm and export it
+          BUCKET_PARAM=$(aws ssm get-parameter --name "/$STAGE/$PROJECT_NAME/frontend_bucket")
+          DEPLOYMENT_BUCKET=$(echo $BUCKET_PARAM | jq -r '.Parameter.Value')
+
+          CF_ID_PARAM=$(aws ssm get-parameter --name "/$STAGE/$PROJECT_NAME/cloudfront_distribution_id")
+          CF_DISTRIBUTION_ID=$(echo $CF_ID_PARAM | jq -r '.Parameter.Value')
+
+          aws configure set preview.cloudfront true
+          aws s3 sync dist s3://$DEPLOYMENT_BUCKET --delete
+          aws cloudfront create-invalidation --distribution-id $CF_DISTRIBUTION_ID --paths /\*

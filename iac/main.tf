@@ -2,7 +2,7 @@ terraform {
   backend "s3" {
     bucket = "MY_BUCKET_NAME"
     key    = "time-keep"
-    region = "us-west-2"
+    region = "us-east-1"
   }
 }
 

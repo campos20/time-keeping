@@ -1,15 +1,18 @@
+import { Link } from "react-router";
+import { appRoutes } from "../config/appRoutes";
+
 export const LandingPage = () => {
   return (
     <div className="flex flex-col w-full min-h-screen bg-gray-100">
       <section className="flex flex-col items-center justify-center flex-1 p-8 bg-white">
         <h1 className="text-4xl font-bold mb-4">Welcome to Time Keeping</h1>
         <p className="text-lg mb-8">Your personal time management tool.</p>
-        <a
-          href="/time-entry"
+        <Link
+          to={appRoutes.timeEntry}
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
         >
           Get Started
-        </a>
+        </Link>
       </section>
 
       <section className="flex flex-row items-center justify-center p-8 bg-gray-200">
@@ -33,7 +36,7 @@ export const LandingPage = () => {
 
       <section className="flex flex-col items-center p-8 bg-white">
         <h2 className="text-2xl font-semibold mb-4">Features</h2>
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
+        <ul className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl text-center">
           <li className="bg-gray-100 p-4 rounded shadow">
             <h3 className="font-bold mb-2">Easy Time Logging</h3>
             <p>Log your tasks and activities with just a few clicks.</p>

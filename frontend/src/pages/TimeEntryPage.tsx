@@ -8,30 +8,28 @@ import { TopMenu } from "../components/TopMenu";
 import { appRoutes } from "../config/appRoutes";
 import { ENTRIES_MOCK } from "../mock/Mock";
 import { TimeEntryDto } from "../model/TimeEntryDto";
-import { UserDto } from "../model/UserDto";
-import { LS_LOGGED_USER, LS_USERS } from "../util/LocalStorageUtil";
+import { getLoggedUser } from "../util/LoginUtil";
 
 export const TimeEntryPage = () => {
   const [entries, setEntries] = useState<TimeEntryDto[]>(ENTRIES_MOCK);
   const [toEdit, setToEdit] = useState<TimeEntryDto>();
+  const [isLogged, setIsLogged] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loggedUserName = JSON.parse(
-      localStorage.getItem(LS_LOGGED_USER) || ""
-    );
+    const loggedUser = getLoggedUser();
 
-    const users: UserDto[] = JSON.parse(localStorage.getItem(LS_USERS) || "[]");
-
-    const loggedUser = users.find(
-      (u: UserDto) => u.username === loggedUserName
-    );
-
-    if (!loggedUser) {
+    if (loggedUser) {
+      setIsLogged(true);
+    } else {
       navigate(appRoutes.login);
     }
   }, []);
+
+  if (!isLogged) {
+    return null;
+  }
 
   return (
     <div>

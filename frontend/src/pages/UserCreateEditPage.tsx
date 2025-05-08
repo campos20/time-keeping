@@ -138,7 +138,7 @@ export const UserCreateEditPage = () => {
                 <Input.Password />
               </Form.Item>
             </Col>
-            <Col span={24} className="text-center">
+            <Col span={24} className="text-center mt-8">
               <ClearSaveButtons handleClear={() => form.resetFields()} />
             </Col>
           </Row>

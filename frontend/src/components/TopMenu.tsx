@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { appRoutes } from "../config/appRoutes";
 import { UserDto } from "../model/UserDto";
-import { LS_LOGGED_USER, LS_USERS } from "../util/LocalStorageUtil";
+import { LS_LOGGED_USER } from "../util/LocalStorageUtil";
+import { getLoggedUser } from "../util/LoginUtil";
 
 export const TopMenu = () => {
   const [loggedUser, setLoggedUser] = useState<UserDto>();
@@ -17,14 +18,7 @@ export const TopMenu = () => {
   };
 
   useEffect(() => {
-    const loggedUserName = JSON.parse(
-      localStorage.getItem(LS_LOGGED_USER) || ""
-    );
-    const users: UserDto[] = JSON.parse(localStorage.getItem(LS_USERS) || "[]");
-
-    const loggedUser = users.find(
-      (u: UserDto) => u.username === loggedUserName
-    );
+    const loggedUser = getLoggedUser();
 
     if (loggedUser) {
       setLoggedUser(loggedUser);

@@ -1,9 +1,10 @@
-import { Button, Col, DatePicker, Form, InputNumber, Row, Select } from "antd";
-import ButtonGroup from "antd/es/button/button-group";
+import { Col, DatePicker, Form, InputNumber, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { useEffect } from "react";
 import { PROJECTS_MOCK } from "../mock/Mock";
 import { TimeEntryDto } from "../model/TimeEntryDto";
-import { useEffect } from "react";
+import { REQUIRED_FIELD } from "../util/FormUtil";
+import { ClearSaveButtons } from "./ClearSaveButtons";
 
 interface Props {
   toEdit?: TimeEntryDto;
@@ -53,30 +54,18 @@ export const TimeEntry = ({
     <Form layout="vertical" form={form} onFinish={onFinish}>
       <Row gutter={8}>
         <Col span={8}>
-          <Form.Item
-            label="Date"
-            name="date"
-            rules={[{ required: true, message: "Required field" }]}
-          >
+          <Form.Item label="Date" name="date" rules={REQUIRED_FIELD}>
             <DatePicker />
           </Form.Item>
         </Col>
 
         <Col span={8}>
-          <Form.Item
-            label="Duration"
-            name="duration"
-            rules={[{ required: true, message: "Required field" }]}
-          >
+          <Form.Item label="Duration" name="duration" rules={REQUIRED_FIELD}>
             <InputNumber suffix="h" step={1} min={0} />
           </Form.Item>
         </Col>
         <Col span={8}>
-          <Form.Item
-            label="Project"
-            name="project"
-            rules={[{ required: true, message: "Required field" }]}
-          >
+          <Form.Item label="Project" name="project" rules={REQUIRED_FIELD}>
             <Select options={PROJECTS_MOCK} allowClear showSearch />
           </Form.Item>
         </Col>
@@ -84,20 +73,13 @@ export const TimeEntry = ({
           <Form.Item
             label="Description"
             name="description"
-            rules={[{ required: true, message: "Required field" }]}
+            rules={REQUIRED_FIELD}
           >
             <TextArea placeholder="Description" />
           </Form.Item>
         </Col>
         <Col span={24} className="text-center">
-          <ButtonGroup>
-            <Button variant="solid" onClick={handleClear}>
-              Clear
-            </Button>
-            <Button type="primary" htmlType="submit">
-              Save
-            </Button>
-          </ButtonGroup>
+          <ClearSaveButtons handleClear={handleClear} />
         </Col>
       </Row>
     </Form>
